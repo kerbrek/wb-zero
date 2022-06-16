@@ -1,0 +1,18 @@
+---
+services:
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - ./initdb/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./initdb/create_template_db.sh:/docker-entrypoint-initdb.d/create_template_db.sh
+    tmpfs:
+      - /var/lib/postgresql/data
+    env_file:
+      - ./.env.example
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+  stan:
+    image: nats-streaming:0.24-alpine
+    ports:
+      - "${STAN_PORT}:4222"

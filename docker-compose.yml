@@ -1,0 +1,37 @@
+---
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: wb-zero-app
+    env_file:
+      - ./.env.example
+    environment:
+      - APP_HOST=0.0.0.0
+      - POSTGRES_HOST=db
+      - STAN_HOST=stan
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - stan
+
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./initdb/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - ./.env.example
+    ports:
+      - "5432:5432"
+
+  stan:
+    image: nats-streaming:0.24-alpine
+    ports:
+      - "4222:4222"
+
+
+volumes:
+  postgres_data:

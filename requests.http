@@ -1,0 +1,22 @@
+# json
+
+###
+GET http://127.0.0.1:8080/api/order/
+
+###
+GET http://127.0.0.1:8080/api/order/b563feb7b2b84b6test
+
+###
+GET http://127.0.0.1:8080/api/order/invalid
+
+
+# html
+
+###
+GET http://127.0.0.1:8080/order/
+
+###
+GET http://127.0.0.1:8080/order/b563feb7b2b84b6test
+
+###
+GET http://127.0.0.1:8080/order/invalid

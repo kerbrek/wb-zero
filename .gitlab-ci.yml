@@ -1,0 +1,26 @@
+---
+default:
+  image: docker:latest
+  services:
+    - docker:dind
+
+test-job:
+  stage: test
+  script:
+    - apk add bash make
+    - make ci-test
+
+# test-job:
+#   stage: test
+#   script:
+#     - export GO_VERSION=1.18.3
+#     - export CGO_ENABLED=0
+#     - apk add bash curl make py3-pip
+#     - pip3 install "python-dotenv[cli]"
+#     - curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o /tmp/go.linux-amd64.tar.gz
+#     - tar -C /usr/local -xzf /tmp/go.linux-amd64.tar.gz
+#     - export GOPATH=/go
+#     - export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+#     - go install honnef.co/go/tools/cmd/staticcheck@latest
+#     - make lint
+#     - make gitlab-test
